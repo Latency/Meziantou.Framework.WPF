@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<Authors>Latency McLaughlin</Authors>
+		<AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+		<DebugType>embedded</DebugType>
+		<Description>Collection of Commands, Markup extensions, DependencyProperty, and collections for WPF</Description>
+		<DisablePackageAssetsCache>true</DisablePackageAssetsCache>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<LangVersion>preview</LangVersion>
+		<MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3270</MSBuildWarningsAsMessages>
+		<Nullable>enable</Nullable>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<Optimize>False</Optimize>
+		<OutputType>Library</OutputType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<RepositoryType>GIT</RepositoryType>
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+		<TargetFrameworks>net7.0-windows;net452</TargetFrameworks>
+		<IsTrimmable>false</IsTrimmable>
+		<UseWPF>true</UseWPF>
+		<Version>1.5.5</Version>
+	</PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
+    <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
