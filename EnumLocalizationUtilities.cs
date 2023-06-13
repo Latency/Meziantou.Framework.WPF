@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -32,14 +31,7 @@ internal static class EnumLocalizationUtilities
             var fieldInfo = type.GetField(enumName)!;
 
             var displayAttribute = fieldInfo.GetCustomAttribute<DisplayAttribute>();
-            if (displayAttribute != null)
-            {
-                result.Add(new LocalizedEnumValue(enumValue, displayAttribute));
-            }
-            else
-            {
-                result.Add(new LocalizedEnumValue(enumValue, enumName));
-            }
+            result.Add(displayAttribute != null ? new LocalizedEnumValue(enumValue, displayAttribute) : new LocalizedEnumValue(enumValue, enumName));
         }
 
         var localizedValueCollection = new LocalizedEnumValueCollection(result);
@@ -61,7 +53,7 @@ internal static class EnumLocalizationUtilities
         if (value is DisplayAttribute attribute)
             return attribute.GetName();
 
-        return value.ToString();
+        return value?.ToString();
     }
 
     public static string GetEnumMemberLocalization(Enum value)

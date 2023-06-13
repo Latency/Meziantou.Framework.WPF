@@ -19,19 +19,12 @@ internal abstract class ObservableCollectionBase<T> : INotifyCollectionChanged, 
 
     protected ObservableCollectionBase(IEnumerable<T> items)
     {
-        if (items == null)
-        {
-            Items = new List<T>();
-        }
-        else
-        {
-            Items = new List<T>(items);
-        }
+        Items = items == null ? new List<T>() : new List<T>(items);
     }
 
 #if NET6_0_OR_GREATER
     public void EnsureCapacity(int capacity) => Items.EnsureCapacity(capacity);
-    #elif NET45 || NET451 || NET452 || NET461 || NET462
+#elif NETFRAMEWORK
 #else
 #error Platform not supported
 #endif

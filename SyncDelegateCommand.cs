@@ -5,7 +5,7 @@ namespace Meziantou.Framework.WPF;
 
 internal sealed class SyncDelegateCommand : IDelegateCommand
 {
-    private readonly Action<object>     _execute;
+    private readonly Action<object?>     _execute;
     private readonly Func<object?, bool> _canExecute;
     private readonly Dispatcher          _dispatcher;
 
@@ -22,16 +22,5 @@ internal sealed class SyncDelegateCommand : IDelegateCommand
 
     public void Execute(object? parameter) => _execute.Invoke(parameter);
 
-    public void RaiseCanExecuteChanged()
-    {
-        if (_dispatcher != null)
-        {
-            _dispatcher.Invoke(() => CanExecuteChanged?.Invoke(this, EventArgs.Empty));
-        }
-        else
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
+    public void RaiseCanExecuteChanged() => _dispatcher.Invoke(() => CanExecuteChanged?.Invoke(this, EventArgs.Empty));
 }
